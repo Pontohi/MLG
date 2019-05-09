@@ -6,13 +6,14 @@ from os import walk
 
 backgroundcoloreffect = "#708090"
 
+setname = "ImSorryJon"
+
 f = []
-for (_, _, filenames) in walk("./Scraped"):
+for (_, _, filenames) in walk("Data/"+setname):
     f.extend(filenames)
     break
 
 approved = []
-
 indexToUse = 0
 
 root = tk.Tk()
@@ -27,7 +28,7 @@ def loadImage(path):
     im = Image.open(str(path))
     return im.resize((500, 500), Image.ANTIALIAS)
 def loadAt(findex):
-    img = loadImage("./Scraped/"+str(f[findex]))
+    img = loadImage("Data/"+setname+"/"+str(f[findex]))
     img = ImageTk.PhotoImage(img)
     panel.configure(image=img)
     panel.image = img
@@ -47,8 +48,8 @@ def on_closing():
     if messagebox.askyesno("Quit", "Do you want to quit?"):
         if messagebox.askyesno("Save", "Do you want to save your progress?"):
             print("Dumping links as JSON and exiting")
-            with open('approved.json', 'w') as outfile:
-                json.dump(approved, outfile)
+            with open('Data/jmappers/approved.json', 'w') as outfile:
+                json.dump({"URLs": approved,"SetName":setname,"DatFold":setname}, outfile)
         root.destroy()
 
 
@@ -56,7 +57,7 @@ root.bind('<Right>', func=lambda x: approve())
 root.bind('<Left>', func=lambda  x: deny())
 
 panel = tk.Label(root)
-img = Image.open(str("./Scraped/" + f[len(f) - 1]))
+img = Image.new("RGB",(10,10))
 img = img.resize((500, 500), Image.ANTIALIAS)
 img = ImageTk.PhotoImage(img)
 panel.configure(image=img, background =backgroundcoloreffect)

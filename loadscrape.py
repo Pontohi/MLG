@@ -2,6 +2,7 @@ import requests
 import json
 from tqdm import tqdm
 import os
+import shutil
 import io
 from PIL import Image
 for walkdat in os.walk("Data/jmappers"):
@@ -14,14 +15,26 @@ for walkdat in os.walk("Data/jmappers"):
             except:
                 print("Finding was that the dir already exists.")
             for set in tqdm(linkset["URLs"]):
-                try:
-                    gifFile = ".gif" in set[0]
-                    r = requests.get(set[1], allow_redirects=True,stream=False)
-                    if r.status_code == 200:
-                        if (gifFile):
-                            i = Image.open(io.BytesIO(r.content))
-                            i.convert("RGB").save("Data/"+linkset["SetName"]+"/"+set[0]+".png", quality=90)
-                        else:
-                            open("Data/"+linkset["SetName"]+"/"+set[0],"wb").write(r.content)
-                except Exception as e:
-                    print(e)
+                if (linkset["DatFold"] == "Internet"):
+                    try:
+                        endpath = set.split('/')[-1]
+                        gifFile = ".gif" in endpath
+                        r = requests.get(set, allow_redirects=True,stream=False)
+                        if r.status_code == 200:
+                            if (gifFile):
+                                i = Image.open(io.BytesIO(r.content))
+                                i.convert("RGB").save("Data/"+linkset["SetName"]+"/"+endpath+".png", quality=90)
+                            else:
+                                open("Data/"+linkset["SetName"]+"/"+endpath,"wb").write(r.content)
+                    except Exception as e:
+                        print(e)
+                else:
+                    try:
+                        os.mkdir("Data/validated_"+linkset["SetName"])
+                    except:
+                        print("Finding was that the valdir already exists.")
+                    for file in linkset["URLs"]:
+                        try:
+                            shutil.copy("Data/"+linkset["SetName"]+"/"+file,"Data/validated_"+linkset["SetName"]+"/"+file)
+                        except Exception as e:
+                            print("Copy failed for "+file+" with error "+e)
