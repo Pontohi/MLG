@@ -1,0 +1,8 @@
+*.private
+__pycache__/*
+*.hdf5
+*.png
+*.jpg
+*.jpeg
+*.gif
+.idea/*
