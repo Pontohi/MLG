@@ -10,6 +10,8 @@ parser.add_argument('--shape', metavar=('X','Y','Z'), dest='shape', type=int,
 parser.add_argument('--count', metavar='E', dest='count', type=int,
                     default=[1000], nargs=1,
                     help='Set how many images the model should generate')
+parser.add_argument('--outfold', metavar='O', dest="outfold",type=str,default=["Batch"],nargs=1,
+                    help="The folder where the images will output to")
 args = parser.parse_args()
 try:
     os.mkdir(args.load[0])
@@ -18,5 +20,5 @@ except:
 network = GenAdvNet(args.shape[0],args.shape[1],args.shape[2],args.load[0])
 network.load_weighting("facegenerator"+args.load[0]+".hdf5","facediscriminator"+args.load[0]+".hdf5")
 for i in range(args.count[0]):
-    network.generate_single_image(args.load[0]+"/"+str(i))
+    network.generate_single_image(args.outfold[0]+"/"+str(i))
     
