@@ -28,7 +28,7 @@ parser.add_argument('--load', metavar='K', dest='loadgen', type=int,
                     help='Generation to load from')
 args = parser.parse_args()
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
-print(os.listdir(""))
+print(os.listdir("."))
 tdirs = list(map(lambda x: "Data/"+x,args.tdirs))
 network = GenAdvNet(args.shape[0],args.shape[1],args.shape[2],args.label[0])
 if args.loadgen != None:
