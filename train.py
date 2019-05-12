@@ -1,5 +1,6 @@
 from model import GenAdvNet
 import argparse
+import os
 
 parser = argparse.ArgumentParser(description='Train the algarfieithm')
 parser.add_argument('--tdirs', metavar='N',dest="tdirs",default=['DailyGarf'], type=str, nargs='+',
@@ -26,7 +27,7 @@ parser.add_argument('--load', metavar='K', dest='loadgen', type=int,
                     default=None, nargs=1,
                     help='Generation to load from')
 args = parser.parse_args()
-
+os.path.chdir(os.path.dirname(os.path.realpath(__file__)))
 tdirs = list(map(lambda x: "Data/"+x,args.tdirs))
 network = GenAdvNet(args.shape[0],args.shape[1],args.shape[2],args.label[0])
 if args.loadgen != None:
