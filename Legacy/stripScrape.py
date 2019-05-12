@@ -37,5 +37,5 @@ for i in tqdm(range(yearstart,yearend)):
             if 'http' not in url:
                 url = '{}{}'.format(site, url)
             if not checkContaining(filename,excludeMarkers):
-                collecting.append((filename,url))
-json.dump({"URLs":collecting,"SetName":"Strips"},open("../Data/jmappers/stripurlfile.json","w"))
+                collecting.append(url)
+json.dump({"URLs":collecting,"SetName":"Strips","DatFold":"Internet"},open("../Data/jmappers/stripurlfile.json","w"))

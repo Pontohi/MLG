@@ -26,7 +26,7 @@ for sub in tqdm(top_subreddit):
         match = re.search(pattern, url)
         if match:
             filename = url.split('/')[-1]
-            collection.append((filename,str(url)))
+            collection.append(str(url))
     except Exception as e:
         print(e)
-json.dump({"URLs": collection,"SetName":"ImSorryJon"},open("../Data/jmappers/sorryurlfile.json","w"))
+json.dump({"URLs": collection,"SetName":"ImSorryJon","DatFold":"Internet"},open("../Data/jmappers/sorryurlfile.json","w"))
