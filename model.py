@@ -142,8 +142,10 @@ class GenAdvNet:
     def train(self, datafolders,epochs,batch_size,save_images_interval,save_model_interval):
         training_data = self.get_training_data(datafolders)
         print("Training Data Loaded")
+        print("about to process training data")
         training_data = training_data / 127.5 - 1.
         print("Training Data Processed")
+        print("about to label images")
         labels_for_real_images = np.ones((batch_size,1))
         labels_for_generated_images = np.zeros((batch_size,1))
         print("Ready to train")
