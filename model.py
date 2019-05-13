@@ -4,6 +4,7 @@ from tensorflow.keras import Model, Sequential
 from tensorflow.keras.layers import Dense, Reshape, Input, Dropout, Conv2D, UpSampling2D, BatchNormalization, Activation, Flatten, LeakyReLU, ZeroPadding2D
 from tqdm import tqdm
 import os
+import gc
 import numpy as np
 import matplotlib.pyplot as plt
 class GenAdvNet:
@@ -143,6 +144,7 @@ class GenAdvNet:
         training_data = self.get_training_data(datafolders)
         print("Training Data Loaded")
         print("about to process training data")
+        gc.collect()
         training_data = training_data / 127.5 - 1.
         print("Training Data Processed")
         print("about to label images")
