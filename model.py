@@ -148,6 +148,7 @@ class GenAdvNet:
         training_data = np.divide(training_data,127.5)
         print("Divided")
         training_data = np.subtract(training_data,1)
+        print("Subtracted")
         print("Training Data Processed")
         print("about to label images")
         labels_for_real_images = np.ones((batch_size,1))
