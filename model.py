@@ -5,6 +5,7 @@ from tensorflow.keras.layers import Dense, Reshape, Input, Dropout, Conv2D, UpSa
 from tqdm import tqdm
 import os
 import gc
+import sys
 import numpy as np
 import matplotlib.pyplot as plt
 class GenAdvNet:
@@ -145,7 +146,7 @@ class GenAdvNet:
         print("Training Data Loaded")
         print("about to process training data")
         gc.collect()
-        training_data = training_data / 127.5 - 1.
+        training_data = (training_data / 127.5) - 1
         print("Training Data Processed")
         print("about to label images")
         labels_for_real_images = np.ones((batch_size,1))
