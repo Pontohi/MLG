@@ -145,7 +145,7 @@ class GenAdvNet:
         training_data = self.get_training_data(datafolders)
         print("Training Data Loaded")
         print("about to process training data")
-        gc.collect()
+        print(training_data)
         training_data = (training_data / 127.5) - 1
         print("Training Data Processed")
         print("about to label images")
