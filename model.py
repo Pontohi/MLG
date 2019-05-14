@@ -147,7 +147,7 @@ class GenAdvNet:
         print("about to process training data")
         training_data = np.divide(training_data,127.5)
         print("Divided")
-        training_data = np.subtract(training_data,1)
+        training_data = np.subtract(training_data,1,dtype=np.uint8)
         print("Subtracted")
         print("Training Data Processed")
         print("about to label images")
