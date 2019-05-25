@@ -145,9 +145,12 @@ class GenAdvNet:
         training_data = self.get_training_data(datafolders)
         print("Training Data Loaded")
         print("about to process training data")
+        gc.collect()
         training_data = np.divide(training_data,127.5)
+        gc.collect()
         print("Divided")
         training_data = np.subtract(training_data,1,dtype=np.float64)
+        gc.collect()
         print("Subtracted")
         print("Training Data Processed")
         print("about to label images")
@@ -201,8 +204,9 @@ class GenAdvNet:
         model = self.generator
         generated_image = model.predict(noise)
         generated_image = (generated_image+1)*127.5
-        print(generated_image)
-        generated_image = np.reshape(generated_image,self.image_shape)
-
+        print(generated_image.shape)
+        generated_image = generated_image.reshape((self.image_height,self.image_width,self.channels))
+        print(generated_image.shape)
+        generated_image = generated_image.astype(np.uint8)
         image = Image.fromarray(generated_image,"RGB")
         image.save(image_save_path)
