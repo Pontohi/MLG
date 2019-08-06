@@ -21,4 +21,3 @@ network = GenAdvNet(args.shape[0],args.shape[1],args.shape[2],args.load[0])
 network.load_weighting("saved_models/facegenerator_"+args.load[0]+".hdf5","saved_models/facediscriminator_"+args.load[0]+".hdf5")
 for i in range(args.count[0]):
     network.generate_single_image(args.outfold[0]+"/"+str(i)+".png")
-    
